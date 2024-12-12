@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Good Book Log - Bible Reader</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="bible-app">
+        <!-- Header -->
+        <header>
+            <h1>The Good Book Log</h1>
+            <input type="search" id="searchBar" placeholder="Search for verses or keywords">
+            <button id="searchButton">Search</button>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Navigation Dropdowns -->
+            <div class="navigation">
+                <label for="bookSelect">Book:</label>
+                <select id="bookSelect">
+                    <option value="">Select Book</option>
+                    <!-- Dynamically populated options -->
+                </select>
+
+                <label for="chapterSelect">Chapter:</label>
+                <select id="chapterSelect" disabled>
+                    <option value="">Select Chapter</option>
+                    <!-- Dynamically populated options -->
+                </select>
+            </div>
+
+            <!-- Scripture Display -->
+            <div class="scripture-display">
+                <h2 id="currentReference">John 3:16</h2>
+                <p id="scriptureText">
+                    "For God so loved the world, that He gave His only Son..."
+                </p>
+            </div>
+
+            <!-- Daily Reading Plan -->
+            <div class="daily-plan">
+                <h3>Today's Reading</h3>
+                <p id="dailyVerse">Loading today's verse...</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 The Good Book Log. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

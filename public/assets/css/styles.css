@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Handlee&display=swap');
+
 :root {
     --color-parchment: #F4E8D1;
     --color-bronze: #CD7F32;
@@ -8,10 +10,12 @@
     --color-cream-100: #FFFDD0;
     --color-cream-200: #FAFAD2;
     --color-cream-300: #F5DEB3;
+    --font-main: 'Fredoka', sans-serif;
+    --font-accent: 'Handlee', cursive;
 }
 
 body {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-main);
     background-color: var(--color-parchment);
     color: var(--color-brown-900);
     line-height: 1.6;
@@ -44,7 +48,11 @@ header {
     margin-right: 10px;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-accent);
+}
+
+.logo h1 {
     font-size: 24px;
     margin: 0;
 }
@@ -83,9 +91,10 @@ button {
     margin-bottom: 30px;
 }
 
-h2 {
+.verse-container h2 {
     font-size: 36px;
     margin-bottom: 10px;
+    font-family: var(--font-main);
 }
 
 .cta {
@@ -180,63 +189,12 @@ footer {
     color: var(--color-gold);
 }
 
-/* Dark mode styles */
-body.dark-mode {
-    background-color: var(--color-brown-900);
-    color: var(--color-cream-100);
-}
-
-body.dark-mode header,
-body.dark-mode .feature-icon,
-body.dark-mode footer {
-    background-color: var(--color-brown-800);
-}
-
-body.dark-mode .cta,
-body.dark-mode form button {
-    background-color: var(--color-gold);
-    color: var(--color-brown-900);
-}
-
-body.dark-mode .cta:hover,
-body.dark-mode form button:hover {
-    background-color: var(--color-bronze);
-}
-
-body.dark-mode .social-links a {
-    color: var(--color-gold);
-}
-
-body.dark-mode .social-links a:hover {
-    color: var(--color-bronze);
-}
-
-@media (max-width: 768px) {
-    .features {
-        flex-direction: column;
-    }
-
-    .feature {
-        margin-bottom: 40px;
-    }
-
-    footer {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    footer div {
-        margin-bottom: 20px;
-    }
-}
-/* Keep all existing CSS from the original styles.css file up until the form styles */
-
-/* Auth Form Specific Styles - More specific selectors to avoid conflicts */
+/* Auth Form Specific Styles */
 .container .auth-form {
     max-width: 400px;
     margin: 60px auto;
     padding: 40px;
-    background-color: #f2e2c9;
+    background-color: var(--color-cream-200);
     border-radius: 8px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
@@ -244,7 +202,7 @@ body.dark-mode .social-links a:hover {
 .container .auth-form h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: var(--color-brown900);
+    color: var(--color-brown-900);
     font-size: 2.5rem;
 }
 
@@ -261,7 +219,7 @@ body.dark-mode .social-links a:hover {
     border: 1px solid var(--color-brown-600);
     border-radius: 4px;
     font-size: 16px;
-    background-color: #f4e8d1;
+    background-color: var(--color-cream-100);
     color: var(--color-brown-900);
     box-sizing: border-box;
 }
@@ -300,13 +258,238 @@ body.dark-mode .social-links a:hover {
     color: var(--color-gold);
 }
 
-/* Dark mode specific styles for auth form */
-body.dark-mode .auth-form {
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    background-color: var(--color-cream-200);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--color-brown-900);
+}
+
+.sidebar-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 10px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 10px;
+    color: var(--color-brown-900);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background-color: var(--color-bronze);
+    color: var(--color-cream-100);
+}
+
+.dark-mode-toggle {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--color-bronze);
+    color: var(--color-cream-100);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Adjust main content to accommodate fixed sidebar */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+/* Bible Reading specific styles */
+.bible-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    height: calc(100vh - 4rem);
+}
+
+.books-list {
+    width: 300px;
+    background-color: var(--color-cream-200);
+    border-radius: 8px;
+    padding: 1rem;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.books-list h2 {
+    font-size: 1.5rem;
+    color: var(--color-brown-900);
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.books-wrapper {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 0.5rem;
+}
+
+.books-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.books-wrapper::-webkit-scrollbar-track {
+    background: var(--color-cream-100);
+    border-radius: 3px;
+}
+
+.books-wrapper::-webkit-scrollbar-thumb {
+    background: var(--color-bronze);
+    border-radius: 3px;
+}
+
+.book-item {
+    margin-bottom: 0.5rem;
+}
+
+.book-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-cream-100);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.book-header:hover {
+    background-color: var(--color-bronze);
+    color: var(--color-cream-100);
+}
+
+.book-name {
+    font-weight: 500;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    transition: transform 0.2s ease;
+}
+
+.toggle-btn.active {
+    transform: rotate(180deg);
+}
+
+.chapter-list {
+    display: none;
+    padding: 0.5rem 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.5rem;
+}
+
+.chapter-list.active {
+    display: grid;
+}
+
+.chapter-btn {
+    background-color: var(--color-cream-100);
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--color-brown-900);
+    transition: all 0.2s ease;
+}
+
+.chapter-btn:hover {
+    background-color: var(--color-bronze);
+    color: var(--color-cream-100);
+}
+
+.chapter-content {
+    flex-grow: 1;
+    background-color: var(--color-cream-100);
+    border-radius: 8px;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-message h1 {
+    font-size: 2.5rem;
+    color: var(--color-brown-900);
+    margin-bottom: 1rem;
+}
+
+.welcome-message p {
+    font-size: 1.1rem;
+    color: var(--color-brown-800);
+}
+
+#chapter-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-brown-900);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: var(--color-brown-900);
+    color: var(--color-cream-100);
+}
+
+body.dark-mode header,
+body.dark-mode .feature-icon,
+body.dark-mode footer {
     background-color: var(--color-brown-800);
 }
 
-body.dark-mode .auth-form h2 {
-    color: var(--color-cream-100);
+body.dark-mode .cta,
+body.dark-mode form button {
+    background-color: var(--color-gold);
+    color: var(--color-brown-900);
+}
+
+body.dark-mode .cta:hover,
+body.dark-mode form button:hover {
+    background-color: var(--color-bronze);
+}
+
+body.dark-mode .social-links a {
+    color: var(--color-gold);
+}
+
+body.dark-mode .social-links a:hover {
+    color: var(--color-bronze);
+}
+
+body.dark-mode .auth-form {
+    background-color: var(--color-brown-800);
 }
 
 body.dark-mode .auth-form input {
@@ -333,4 +516,97 @@ body.dark-mode .auth-links a:hover {
     color: var(--color-bronze);
 }
 
-/* Keep all existing media queries from the original styles.css file */
+body.dark-mode .sidebar {
+    background-color: var(--color-brown-800);
+}
+
+body.dark-mode .sidebar-header h1,
+body.dark-mode .sidebar-nav a {
+    color: var(--color-cream-100);
+}
+
+body.dark-mode .sidebar-nav a:hover,
+body.dark-mode .sidebar-nav a.active {
+    background-color: var(--color-gold);
+    color: var(--color-brown-900);
+}
+
+body.dark-mode .dark-mode-toggle {
+    background-color: var(--color-gold);
+    color: var(--color-brown-900);
+}
+
+body.dark-mode .books-list {
+    background-color: var(--color-brown-800);
+}
+
+body.dark-mode .book-header {
+    background-color: var(--color-brown-900);
+    color: var(--color-cream-100);
+}
+
+body.dark-mode .book-header:hover {
+    background-color: var(--color-gold);
+    color: var(--color-brown-900);
+}
+
+body.dark-mode .chapter-btn {
+    background-color: var(--color-brown-900);
+    color: var(--color-cream-100);
+}
+
+body.dark-mode .chapter-btn:hover {
+    background-color: var(--color-gold);
+    color: var(--color-brown-900);
+}
+
+body.dark-mode .chapter-content {
+    background-color: var(--color-brown-800);
+    color: var(--color-cream-100);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+    }
+
+    .feature {
+        margin-bottom: 40px;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer div {
+        margin-bottom: 20px;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .bible-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .books-list {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+    }
+
+    .chapter-content {
+        margin-top: 1rem;
+    }
+}

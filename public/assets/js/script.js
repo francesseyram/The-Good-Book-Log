@@ -2,43 +2,90 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
 
-    darkModeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-    });
+    // Check for saved dark mode preference
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
 
-    const verses = [
-        { text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", source: "John 3:16" },
-        { text: "The Lord is my shepherd, I lack nothing.", source: "Psalm 23:1" },
-        { text: "I can do all this through him who gives me strength.", source: "Philippians 4:13" },
-    ];
-
-    const verseElement = document.getElementById('verse');
-    const verseSourceElement = document.getElementById('verse-source');
-
-    let currentVerseIndex = 0;
-
-    function changeVerse() {
-        const { text, source } = verses[currentVerseIndex];
-        verseElement.textContent = text;
-        verseSourceElement.textContent = source;
-        currentVerseIndex = (currentVerseIndex + 1) % verses.length;
+    // Set initial dark mode state
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
     }
 
-    setInterval(changeVerse, 5000);
-
-    const searchForm = document.getElementById('searchForm');
-    searchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const searchTerm = e.target.querySelector('input').value;
-        console.log('Searching for:', searchTerm);
-        // Implement search functionality here
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
     });
 
-    const newsletterForm = document.getElementById('newsletterForm');
-    newsletterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = e.target.querySelector('input').value;
-        console.log('Signing up with email:', email);
-        // Implement newsletter signup functionality here
+    // Bible reading functionality
+    const bookHeaders = document.querySelectorAll('.book-header');
+    const chapterContent = document.getElementById('chapter-text');
+
+    // Handle book expansion
+    bookHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const bookItem = header.closest('.book-item');
+            const chapterList = bookItem.querySelector('.chapter-list');
+            const toggleBtn = header.querySelector('.toggle-btn');
+
+            // Close other open chapter lists
+            document.querySelectorAll('.chapter-list.active').forEach(list => {
+                if (list !== chapterList) {
+                    list.classList.remove('active');
+                    list.closest('.book-item').querySelector('.toggle-btn').classList.remove('active');
+                }
+            });
+
+            // Toggle current chapter list
+            chapterList.classList.toggle('active');
+            toggleBtn.classList.toggle('active');
+        });
     });
+
+    // Handle chapter selection
+    document.querySelectorAll('.chapter-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const book = button.getAttribute('data-book');
+            const chapter = button.getAttribute('data-chapter');
+            
+            // Show loading state
+            chapterContent.innerHTML = `
+                <div class="welcome-message">
+                    <h1>${book} - Chapter ${chapter}</h1>
+                    <p>Loading chapter content...</p>
+                </div>
+            `;
+
+            // Fetch chapter content (replace with actual API call)
+            fetch(`get-chapter.php?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        chapterContent.innerHTML = `
+                            <div class="welcome-message">
+                                <h1>Error</h1>
+                                <p>${data.error}</p>
+                            </div>
+                        `;
+                    } else {
+                        chapterContent.innerHTML = `
+                            <div class="welcome-message">
+                                <h1>${book} - Chapter ${chapter}</h1>
+                            </div>
+                            <div class="chapter-text">
+                                ${data.content}
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    chapterContent.innerHTML = `
+                        <div class="welcome-message">
+                            <h1>Error</h1>
+                            <p>Failed to load chapter content: ${error}</p>
+                        </div>
+                    `;
+                });
+        });
+    });
+
+    // Keep existing code for search and newsletter functionality
 });

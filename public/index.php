@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,10 +35,10 @@
                 <p id="verse-source">Psalm 1:2 (ESV)</p>
             </div>
             <button class="cta">
-                <a href="register.html" style="text-decoration: none; color: inherit;">Get Started</a>
+                <a href="../api/register.php" style="text-decoration: none; color: inherit;">Get Started</a>
             </button>
             <button class="cta">
-                <a href="login.html" style="text-decoration: none; color: inherit;">Login</a>
+                <a href="../api/login.php" style="text-decoration: none; color: inherit;">Login</a>
             </button>
             
         </section>
@@ -75,18 +79,7 @@
             <p>"The fear of the Lord is the beginning of wisdom."</p>
         </section>
 
-        <section class="search">
-            <h3>Search the Bible</h3>
-            <form id="searchForm">
-                <input type="text" placeholder="Enter a keyword..." aria-label="Search the Bible">
-                <button type="submit" aria-label="Search">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </form>
-        </section>
+        
 
         <section class="newsletter">
             <h3>Subscribe to Our Newsletter</h3>
@@ -103,19 +96,19 @@
             </div>
             <div>
                 <h4>Contact</h4>
-                <p>info@ancientwisdom.com</p>
+                <p>info@thegoodbooklog.com</p>
             </div>
             <div>
                 <h4>Follow Us</h4>
                 <div class="social-links">
-                    <a href="#" aria-label="Twitter">Twitter</a>
-                    <a href="#" aria-label="Facebook">Facebook</a>
-                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="https://x.com/i/flow/login" aria-label="Twitter">Twitter</a>
+                    <a href="https://www.facebook.com/login.php/" aria-label="Facebook">Facebook</a>
+                    <a href="https://www.instagram.com/accounts/login/?hl=en" aria-label="Instagram">Instagram</a>
                 </div>
             </div>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
