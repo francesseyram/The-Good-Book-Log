@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Toggle current chapter list
+            // Toggle current chapter list visibility
             chapterList.classList.toggle('active');
             toggleBtn.classList.toggle('active');
         });
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const book = button.getAttribute('data-book');
             const chapter = button.getAttribute('data-chapter');
-            
+
             // Show loading state
             chapterContent.innerHTML = `
                 <div class="welcome-message">
@@ -55,35 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             // Fetch chapter content (replace with actual API call)
-            fetch(`get-chapter.php?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        chapterContent.innerHTML = `
-                            <div class="welcome-message">
-                                <h1>Error</h1>
-                                <p>${data.error}</p>
-                            </div>
-                        `;
-                    } else {
-                        chapterContent.innerHTML = `
-                            <div class="welcome-message">
-                                <h1>${book} - Chapter ${chapter}</h1>
-                            </div>
-                            <div class="chapter-text">
-                                ${data.content}
-                            </div>
-                        `;
-                    }
-                })
-                .catch(error => {
-                    chapterContent.innerHTML = `
-                        <div class="welcome-message">
-                            <h1>Error</h1>
-                            <p>Failed to load chapter content: ${error}</p>
-                        </div>
-                    `;
-                });
+            
         });
     });
 

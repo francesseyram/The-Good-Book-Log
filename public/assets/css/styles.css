@@ -584,14 +584,9 @@ body.dark-mode .chapter-content {
         margin-bottom: 20px;
     }
 
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-
+    
     .main-content {
-        margin-left: 0;
+        margin-left: 250px;
     }
 
     .bible-container {
@@ -610,3 +605,87 @@ body.dark-mode .chapter-content {
         margin-top: 1rem;
     }
 }
+button.toggle-btn.active {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* Chapter list visibility */
+.chapter-list {
+    display: none;
+}
+
+.chapter-list.active {
+    display: block;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: var(--color-brown-900);
+    color: var(--color-cream-100);
+}
+
+body.dark-mode .sidebar {
+    background-color: var(--color-brown-800);
+}
+
+body.dark-mode .main-content {
+    background-color: var(--color-brown-900);
+}
+
+body.dark-mode .book-item,
+body.dark-mode .chapter-btn {
+    background-color: var(--color-brown-800);
+    color: var(--color-cream-100);
+}
+
+body.dark-mode .toggle-btn svg {
+    stroke: var(--color-cream-100);
+}
+
+body.dark-mode .dark-mode-toggle {
+    background-color: var(--color-cream-200);
+    color: var(--color-brown-900);
+}
+
+
+/* Main content area should have margin to avoid overlapping with the sidebar */
+.main-content {
+    margin-left: 250px; /* Align with sidebar width */
+    padding: 20px;
+    width: calc(100% - 250px); /* Ensure full width is available minus sidebar */
+}
+
+/* Style for reading plans and other content */
+.reading-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adds spacing between reading plans */
+}
+
+.card {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.enroll-btn {
+    background-color: #CD7F32;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.enroll-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+
+
+
+

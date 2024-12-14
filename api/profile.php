@@ -60,7 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $stored_password = $result->fetch_column();
+        $row = $result->fetch_assoc();
+        $stored_password = $row['password'];
         $stmt->close();
 
         if (password_verify($current_password, $stored_password)) {
@@ -90,16 +91,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
     <link rel="stylesheet" href="../public/assets/css/styles.css">
     <style>
         .profile-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 2rem auto;
-            padding: 2rem;
             background-color: var(--color-cream-100);
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
         .profile-header {
+            background-color: var(--color-bronze);
+            color: var(--color-cream-100);
+            padding: 2rem;
             text-align: center;
-            margin-bottom: 2rem;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: var(--color-cream-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--color-bronze);
+        }
+        .profile-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .profile-email {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--color-cream-200);
+        }
+        .profile-tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .profile-tab.active {
+            background-color: var(--color-cream-200);
+            font-weight: bold;
+        }
+        .profile-content {
+            padding: 2rem;
         }
         .profile-form {
             display: grid;
@@ -114,19 +156,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
             font-weight: 500;
         }
         .form-group input {
-            padding: 0.5rem;
-            border: 1px solid var(--color-brown-600);
+            padding: 0.75rem;
+            border: 1px solid var(--color-cream-300);
             border-radius: 4px;
             font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-bronze);
         }
         .btn {
             background-color: var(--color-bronze);
             color: var(--color-cream-100);
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
         }
         .btn:hover {
             background-color: var(--color-gold);
@@ -144,6 +193,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
             background-color: #f8d7da;
             color: #721c24;
         }
+        @media (max-width: 768px) {
+            .profile-container {
+                margin: 1rem;
+            }
+            .profile-header {
+                padding: 1.5rem;
+            }
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+            .profile-content {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -153,52 +218,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
         <div class="main-content">
             <div class="profile-container">
                 <div class="profile-header">
-                    <h1 class="font-accent">User Profile</h1>
+                    <div class="profile-avatar">
+                        <?php echo strtoupper(substr($user['first_name'], 0, 1) . substr($user['last_name'], 0, 1)); ?>
+                    </div>
+                    <h1 class="profile-name"><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h1>
+                    <p class="profile-email"><?php echo htmlspecialchars($user['email']); ?></p>
                 </div>
 
-                <?php if ($success_message): ?>
-                    <div class="message success"><?php echo $success_message; ?></div>
-                <?php endif; ?>
+                <div class="profile-tabs">
+                    <div class="profile-tab active" data-tab="profile">Profile</div>
+                    <div class="profile-tab" data-tab="security">Security</div>
+                </div>
 
-                <?php if ($error_message): ?>
-                    <div class="message error"><?php echo $error_message; ?></div>
-                <?php endif; ?>
+                <div class="profile-content">
+                    <?php if ($success_message): ?>
+                        <div class="message success"><?php echo $success_message; ?></div>
+                    <?php endif; ?>
 
-                <form class="profile-form" method="POST">
-                    <div class="form-group">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user['first_name']); ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user['last_name']); ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-                    </div>
-                    <button type="submit" name="update_profile" class="btn">Update Profile</button>
-                </form>
+                    <?php if ($error_message): ?>
+                        <div class="message error"><?php echo $error_message; ?></div>
+                    <?php endif; ?>
 
-                <h2 class="font-accent" style="margin-top: 2rem;">Reset Password</h2>
-                <form class="profile-form" method="POST">
-                    <div class="form-group">
-                        <label for="current_password">Current Password</label>
-                        <input type="password" id="current_password" name="current_password" required>
+                    <div id="profile-tab-content">
+                        <form class="profile-form" method="POST">
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user['first_name']); ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user['last_name']); ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                            </div>
+                            <button type="submit" name="update_profile" class="btn">Update Profile</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="new_password">New Password</label>
-                        <input type="password" id="new_password" name="new_password" required>
+
+                    <div id="security-tab-content" style="display: none;">
+                        <form class="profile-form" method="POST">
+                            <div class="form-group">
+                                <label for="current_password">Current Password</label>
+                                <input type="password" id="current_password" name="current_password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new_password">New Password</label>
+                                <input type="password" id="new_password" name="new_password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm_password">Confirm New Password</label>
+                                <input type="password" id="confirm_password" name="confirm_password" required>
+                            </div>
+                            <button type="submit" name="reset_password" class="btn">Reset Password</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="confirm_password">Confirm New Password</label>
-                        <input type="password" id="confirm_password" name="confirm_password" required>
-                    </div>
-                    <button type="submit" name="reset_password" class="btn">Reset Password</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-    <script src="../public/assets/js/script.js"></script>
+    <script>
+        // Tab functionality
+        const tabs = document.querySelectorAll('.profile-tab');
+        const tabContents = {
+            profile: document.getElementById('profile-tab-content'),
+            security: document.getElementById('security-tab-content')
+        };
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                Object.values(tabContents).forEach(content => content.style.display = 'none');
+                tabContents[tabName].style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>

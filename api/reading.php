@@ -20,6 +20,80 @@ include '../config/config.php';
     <title>Bible Reading - The Good Book Log</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Handlee&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../public/assets/css/styles.css">
+    <style>
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            margin-left: 250px; /* Adjust this value to match your sidebar width */
+        }
+        .bible-container {
+            display: flex;
+            gap: 2rem;
+        }
+        .books-list {
+            flex: 0 0 300px;
+            overflow-y: auto;
+            max-height: calc(100vh - 4rem);
+        }
+        .chapter-content {
+            flex: 1;
+        }
+        .book-item {
+            margin-bottom: 1rem;
+        }
+        .book-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--color-cream-200);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .book-name {
+            font-weight: 500;
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .chapter-list {
+            display: none;
+            padding: 0.5rem;
+            background-color: var(--color-cream-100);
+            border-radius: 0 0 4px 4px;
+        }
+        .chapter-btn {
+            display: inline-block;
+            margin: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            background-color: var(--color-cream-300);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .chapter-btn:hover {
+            background-color: var(--color-bronze);
+            color: var(--color-cream-100);
+        }
+        .welcome-message {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .welcome-message h1 {
+            font-family: var(--font-accent);
+            color: var(--color-brown-900);
+        }
+        #chapter-text {
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
@@ -82,5 +156,70 @@ include '../config/config.php';
         </div>
     </div>
     <script src="../public/assets/js/script.js"></script>
+    <script src="../public/assets/js/darkMode.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const bookItems = document.querySelectorAll('.book-item');
+        const chapterBtns = document.querySelectorAll('.chapter-btn');
+        const chapterText = document.getElementById('chapter-text');
+
+        bookItems.forEach(item => {
+            const header = item.querySelector('.book-header');
+            const chapterList = item.querySelector('.chapter-list');
+            header.addEventListener('click', () => {
+                chapterList.style.display = chapterList.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        chapterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const book = this.getAttribute('data-book').toLowerCase();  // Ensure the book name is lowercase
+                const chapter = this.getAttribute('data-chapter');
+                fetchChapter(book, chapter);
+            });
+        });
+
+        // Function to fetch chapter data from the Bible API
+        function fetchChapter(book, chapter) {
+            const url = `https://bible-api.com/${book}%20${chapter}?translation=kjv`;
+
+    // Display loading message before the fetch
+    chapterText.innerHTML = `<p>Loading chapter...</p>`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json(); // Parse as JSON
+        })
+        .then(data => {
+            if (data.verses) {
+                // Display chapter title and verses
+                chapterText.innerHTML = `<h2>${capitalize(book)} Chapter ${chapter}</h2>`;
+                let chapterContent = `<ul>`;
+                data.verses.forEach(verse => {
+                    chapterContent += `<li><strong>Verse ${verse.verse}:</strong> ${verse.text}</li>`;
+                });
+                chapterContent += `</ul>`;
+                chapterText.innerHTML += chapterContent;
+            } else {
+                chapterText.innerHTML = `<p>Sorry, the chapter content could not be found.</p>`;
+            }
+        })
+        .catch(error => {
+            // If there's an error, display the error message instead
+            chapterText.innerHTML = `<p>Sorry, there was an error fetching the chapter. Please try again later.</p>`;
+            console.error('Error fetching chapter:', error);
+        });
+        }
+
+        // Utility function to capitalize book names
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    });
+    </script>
 </body>
 </html>
+

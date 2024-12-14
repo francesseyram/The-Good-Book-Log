@@ -8,38 +8,71 @@ if (!isset($_SESSION['user_email'])) {
     exit;
 }
 
-// Assuming you fetch the username from the session or database
-$userName = $_SESSION['user_email'];
-$first_name = $_SESSION['first_name'] ; // Or fetch from DB if needed
-?>
+// Include configuration
+include '../config/config.php';
 
+// Query to get the Verse of the Day
+$query = "SELECT * FROM verse_of_the_day_gbl ORDER BY RAND() LIMIT 1";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful
+if ($result) {
+    // Fetch the result as an associative array
+    $verse_of_the_day = mysqli_fetch_assoc($result);
+} else {
+    // If the query fails, handle the error
+    echo "Error fetching verse of the day: " . mysqli_error($conn);
+    exit;
+}
+
+// Your existing logic for fetching user info and progress tracking here (e.g., user name, progress, etc.)
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - The Good Book Log</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Bible Reading - The Good Book Log</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Handlee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../public/assets/css/styles.css">
 </head>
 <body>
     <div class="dashboard-container">
-        <div id="sidebar-container">
-            <?php include '../templates/sidebar.html'; ?>
-            <!-- Sidebar content can go here -->
-        </div>
+        <!-- Include the sidebar -->
+        <?php include '../templates/sidebar.html'; ?>
+
         <div class="main-content">
-            <header>
-                <h2>Welcome, <?php echo htmlspecialchars($first_name); ?></h2>
-            </header>
-            <div class="dashboard-stats">
-                <h3>Your Reading Stats</h3>
-                <p>Books read: 3</p>
-                <p>Chapters completed: 45</p>
-                <p>Verses memorized: 12</p>
+            <!-- Welcome Message -->
+            <h1>Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</h1>
+
+            <!-- Verse of the Day Section -->
+            <div class="verse-of-the-day">
+                <h2>Verse of the Day</h2>
+                <?php if ($verse_of_the_day): ?>
+                    <p><strong><?php echo htmlspecialchars($verse_of_the_day['book']); ?> <?php echo $verse_of_the_day['chapter']; ?>:<?php echo $verse_of_the_day['verse']; ?>:</strong></p>
+                    <p><?php echo htmlspecialchars($verse_of_the_day['text']); ?></p>
+                <?php else: ?>
+                    <p>Sorry, the Verse of the Day is unavailable.</p>
+                <?php endif; ?>
             </div>
-            <!-- Add more dashboard content here -->
+
+            <!-- Reading Progress Section (Placeholder for your charts) -->
+            <div class="reading-progress">
+                <h2>Your Reading Progress</h2>
+                <!-- Example progress bar (replace with actual data and logic) -->
+                <p>Progress: 35% of the Bible read</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 35%;"></div>
+                </div>
+            </div>
+
+            <!-- Optional: Bible Completion Stats -->
+            <div class="completion-stats">
+                <h2>Completion Stats</h2>
+                <p>You have read 35% of the Bible.</p>
+                <!-- Insert charts here if desired -->
+            </div>
         </div>
     </div>
-    <script src="assets/js/script.js"></script>
 </body>
 </html>
