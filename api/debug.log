@@ -1,0 +1,90 @@
+Array
+(
+    [plan_id] => 2
+    [chapters] => Array
+        (
+            [0] => Isaiah_7_14_15
+            [1] => Isaiah_9_6_7
+            [2] => Micah_5_2_5
+            [3] => Jeremiah_33_14_16
+        )
+
+)
+Total Chapters: 25, Read Chapters: 0, Progress Percentage: 0
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 4
+Total Chapters: 25, Read Chapters: 4, Progress Percentage: 16
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 4
+Total Chapters: 25, Read Chapters: 4, Progress Percentage: 16
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 4
+Total Chapters: 25, Read Chapters: 4, Progress Percentage: 16
+Inserting chapter_id: 19 for user_id: 2, plan_id: 2
+Inserting chapter_id: 21 for user_id: 2, plan_id: 2
+Inserting chapter_id: 22 for user_id: 2, plan_id: 2
+Inserting chapter_id: 23 for user_id: 2, plan_id: 2
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 4
+Total Chapters: 25, Read Chapters: 4, Progress Percentage: 16
+Chapter_id: 19 already exists for user_id: 2, plan_id: 2
+Chapter_id: 21 already exists for user_id: 2, plan_id: 2
+Chapter_id: 22 already exists for user_id: 2, plan_id: 2
+Chapter_id: 23 already exists for user_id: 2, plan_id: 2
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 4
+Total Chapters: 25, Read Chapters: 4, Progress Percentage: 16
+Processing chapter_id: 19 for user_id: 2, plan_id: 2
+Chapter_id: 19 already exists for user_id: 2, plan_id: 2
+Processing chapter_id: 21 for user_id: 2, plan_id: 2
+Chapter_id: 21 already exists for user_id: 2, plan_id: 2
+Processing chapter_id: 22 for user_id: 2, plan_id: 2
+Chapter_id: 22 already exists for user_id: 2, plan_id: 2
+Processing chapter_id: 23 for user_id: 2, plan_id: 2
+Chapter_id: 23 already exists for user_id: 2, plan_id: 2
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 4
+Total Chapters: 25, Read Chapters: 4, Progress Percentage: 16
+Chapter not found for book: Isaiah, chapter: 7, start_verse: 14, end_verse: 
+Processing chapter_id: 19 for user_id: 2, plan_id: 2
+Chapter_id: 19 already exists for user_id: 2, plan_id: 2
+Chapter not found for book: Micah, chapter: 5, start_verse: 2, end_verse: 
+Processing chapter_id: 21 for user_id: 2, plan_id: 2
+Chapter_id: 21 already exists for user_id: 2, plan_id: 2
+Processing chapter_id: 22 for user_id: 2, plan_id: 2
+Chapter_id: 22 already exists for user_id: 2, plan_id: 2
+Processing chapter_id: 23 for user_id: 2, plan_id: 2
+Chapter_id: 23 already exists for user_id: 2, plan_id: 2
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 4
+Total Chapters: 25, Read Chapters: 4, Progress Percentage: 16
+Processing: Book: Isaiah, Chapter: 7, Start Verse: 14, End Verse: 
+Found chapter_id: 18 for user_id: 2, plan_id: 2
+Inserting chapter_id: 18 for user_id: 2, plan_id: 2
+Processing: Book: Isaiah, Chapter: 9, Start Verse: 6, End Verse: 7
+Found chapter_id: 19 for user_id: 2, plan_id: 2
+Chapter_id: 19 already exists for user_id: 2, plan_id: 2
+Processing: Book: Micah, Chapter: 5, Start Verse: 2, End Verse: 
+Found chapter_id: 20 for user_id: 2, plan_id: 2
+Inserting chapter_id: 20 for user_id: 2, plan_id: 2
+Processing: Book: Jeremiah, Chapter: 33, Start Verse: 14, End Verse: 16
+Found chapter_id: 21 for user_id: 2, plan_id: 2
+Chapter_id: 21 already exists for user_id: 2, plan_id: 2
+Processing: Book: Luke, Chapter: 1, Start Verse: 5, End Verse: 25
+Found chapter_id: 22 for user_id: 2, plan_id: 2
+Chapter_id: 22 already exists for user_id: 2, plan_id: 2
+Processing: Book: Luke, Chapter: 1, Start Verse: 26, End Verse: 38
+Found chapter_id: 23 for user_id: 2, plan_id: 2
+Chapter_id: 23 already exists for user_id: 2, plan_id: 2
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 25
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 6
+Total Chapters: 25, Read Chapters: 6, Progress Percentage: 24
+Processing: Book: Isaiah, Chapter: 9, Start Verse: 6, End Verse: 7
+Found chapter_id: 1 for user_id: 2, plan_id: 1
+Inserting chapter_id: 1 for user_id: 2, plan_id: 1
+Processing: Book: Micah, Chapter: 5, Start Verse: 2, End Verse: 
+Found chapter_id: 2 for user_id: 2, plan_id: 1
+Inserting chapter_id: 2 for user_id: 2, plan_id: 1
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 7
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 2
+Total Chapters: 7, Read Chapters: 2, Progress Percentage: 28.571428571429

@@ -54,10 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Fetch chapter content (replace with actual API call)
-            
+            // Here, you would add the logic to load chapter content dynamically
         });
     });
 
-    // Keep existing code for search and newsletter functionality
 });

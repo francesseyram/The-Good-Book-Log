@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Check if email already exists
-        $check_email = "SELECT id FROM users_gbl WHERE email = ?";
+        $check_email = "SELECT user_id FROM users_gbl WHERE email = ?";
         $stmt = $conn->prepare($check_email);
         $stmt->bind_param("s", $email);
         $stmt->execute();

@@ -1,0 +1,87 @@
+:root {
+    --color-bronze: #8B7355;
+    --color-gold: #DAA520;
+    --bg-light: #f9f9f9;
+    --text-dark: #333;
+    --white: #fff;
+    --color-cream-200: #FAFAD2;
+
+}
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.dashboard-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background: var(--color-bronze);
+    color: var(--white);
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    padding-left: 20px;
+    margin-left: 10px;
+}
+
+.welcome-message {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-bronze);
+}
+
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.chart-wrapper {
+    flex: 1;
+    margin: 0 10px;
+    height: 400px;
+}
+
+.verse-of-the-day {
+    background: var(--white);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+
+.verse-of-the-day h2 {
+    margin-bottom: 0.5rem;
+    color: var(--color-bronze);
+}
+
+.active-plans {
+    background: var(--white);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.active-plans h2 {
+    margin-bottom: 1rem;
+    color: var(--color-bronze);
+}
+
+.active-plans ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.active-plans li {
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}

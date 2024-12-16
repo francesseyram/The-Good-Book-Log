@@ -20,6 +20,7 @@ CREATE TABLE reading_logs_gbl (
     FOREIGN KEY (user_id) REFERENCES users_gbl(user_id) ON DELETE CASCADE
 );
 
+/*
 -- Create the Goals table (renamed to goals_gbl)
 CREATE TABLE goals_gbl (
     goal_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,6 +31,7 @@ CREATE TABLE goals_gbl (
     status ENUM('In Progress', 'Completed', 'Missed') DEFAULT 'In Progress',
     FOREIGN KEY (user_id) REFERENCES users_gbl(user_id) ON DELETE CASCADE
 );
+
 
 -- Create the Habit Tracking table (renamed to habit_tracking_gbl)
 CREATE TABLE habit_tracking_gbl (
@@ -51,6 +53,7 @@ CREATE TABLE analytics_gbl (
     average_reading_time FLOAT DEFAULT 0.0,
     FOREIGN KEY (user_id) REFERENCES users_gbl(user_id) ON DELETE CASCADE
 );
+*/
 
 -- Create the Verse of the Day table (renamed to verse_of_the_day_gbl)
 CREATE TABLE verse_of_the_day_gbl (
@@ -79,7 +82,8 @@ CREATE TABLE reading_plans_gbl (
     duration INT NOT NULL, -- Number of days
     category VARCHAR(100) NOT NULL,
     description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    progress FLOAT DEFAULT 0.0
 );
 
 -- Create the Plan Chapters table
@@ -93,6 +97,19 @@ CREATE TABLE plan_chapters_gbl (
     end_verse INT DEFAULT NULL,
     FOREIGN KEY (plan_id) REFERENCES reading_plans_gbl(plan_id) ON DELETE CASCADE
 );
+
+-- Create the Read Chapters table
+CREATE TABLE read_chapters (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    plan_id INT NOT NULL,
+    chapter_id INT NOT NULL, -- Foreign key to plan_chapters_gbl
+    read_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users_gbl(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (plan_id) REFERENCES reading_plans_gbl(plan_id) ON DELETE CASCADE,
+    FOREIGN KEY (chapter_id) REFERENCES plan_chapters_gbl(chapter_id) ON DELETE CASCADE
+);
+
 
 INSERT INTO verse_of_the_day_gbl (book, chapter, verse, text) VALUES
 ('Jeremiah', 29, 11, '“For I know the plans I have for you,” declares the LORD, “plans to prosper you and not to harm you, plans to give you a hope and a future.”'),
@@ -127,16 +144,6 @@ VALUES
 (1, 6, 'Matthew', 2, 1, 12), -- Visit of the Magi
 (1, 7, 'John', 1, 1, 14); -- Jesus as the Word made Flesh
 
--- Add one chapter per day leading up to Christmas
-INSERT INTO plan_chapters_gbl (plan_id, day_number, book, chapter) 
-VALUES 
-(2, 1, 'Isaiah', 7),
-(2, 2, 'Isaiah', 9),
-(2, 3, 'Micah', 5),
-(2, 4, 'Matthew', 1),
-(2, 5, 'Matthew', 2),
--- Continue up to day 25 with a mix of Old and New Testament verses...
-(2, 25, 'Luke', 2); -- Christmas Day reading
 
 
 INSERT INTO plan_chapters_gbl (plan_id, day_number, book, chapter, start_verse, end_verse) 

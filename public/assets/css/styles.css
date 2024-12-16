@@ -586,7 +586,7 @@ body.dark-mode .chapter-content {
 
     
     .main-content {
-        margin-left: 250px;
+        margin-left: 300px;
     }
 
     .bible-container {
@@ -684,6 +684,13 @@ body.dark-mode .dark-mode-toggle {
     background-color: #ddd;
     cursor: not-allowed;
 }
+
+
+
+
+
+
+
 
 
 
