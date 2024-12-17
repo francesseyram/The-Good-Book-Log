@@ -4,7 +4,7 @@ session_start();
 include '../config/config.php';
 
 // Check if user is logged in, if not, redirect to login page
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])|| $_SESSION['user_role'] != 2) {
     header("Location: login.php");
     exit();
 }
@@ -84,6 +84,7 @@ $enrolled_result = $enrolled_stmt->get_result();
         .dashboard-container {
             display: flex;
             min-height: 100vh;
+            margin-left: 30px;
         }
         .main-content {
             flex-grow: 1;

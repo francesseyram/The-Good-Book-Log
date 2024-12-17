@@ -3,7 +3,7 @@ session_start();
 include '../config/config.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])|| $_SESSION['user_role'] != 2) {
     header("Location: login.php");
     exit();
 }
@@ -47,6 +47,21 @@ $plan_progress = array_column($active_plans, 'progress');
     <title>Dashboard</title>
     <link rel="stylesheet" href="../public/assets/css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js -->
+<style>
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            margin-left: 30px; /* Adjusted to match sidebar width */ 
+            z-index: 0;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 0 2rem;
+            box-sizing: border-box;
+        }
+    </style>
+
 </head>
 <body>
     <div class="dashboard-container">

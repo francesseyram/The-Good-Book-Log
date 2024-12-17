@@ -2,8 +2,8 @@
 session_start();
 include '../config/config.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])|| $_SESSION['user_role'] != 2) {
+// Check if user is logged in and is an admin
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1 ) {
     header("Location: login.php");
     exit;
 }
@@ -44,6 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         $stmt->close();
     }
 }
+
+// Admin functionality: View all users
+$users = [];
+$stmt = $conn->prepare("SELECT user_id, first_name, last_name, email, role FROM users_gbl");
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    $users[] = $row;
+}
+$stmt->close();
 
 // Handle password reset
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
@@ -86,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile - The Good Book Log</title>
+    <title>Admin Profile - The Good Book Log</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Handlee&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../public/assets/css/styles.css">
     <style>
@@ -193,27 +203,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
             background-color: #f8d7da;
             color: #721c24;
         }
-        @media (max-width: 768px) {
-            .profile-container {
-                margin: 1rem;
-            }
-            .profile-header {
-                padding: 1.5rem;
-            }
-            .profile-avatar {
-                width: 100px;
-                height: 100px;
-                font-size: 2.5rem;
-            }
-            .profile-content {
-                padding: 1.5rem;
-            }
-        }
+
     </style>
 </head>
 <body>
     <div class="dashboard-container">
-        <?php include '../templates/sidebar.html'; ?>
+        <?php include '../templates/admin_sidebar.html'; ?>
         
         <div class="main-content">
             <div class="profile-container">
@@ -274,12 +269,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
                             <button type="submit" name="reset_password" class="btn">Reset Password</button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+
     <script>
-        // Tab functionality
         const tabs = document.querySelectorAll('.profile-tab');
         const tabContents = {
             profile: document.getElementById('profile-tab-content'),
@@ -291,10 +287,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
                 const tabName = tab.getAttribute('data-tab');
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
+                
+                // Hide all content
                 Object.values(tabContents).forEach(content => content.style.display = 'none');
+                
+                // Show selected content
                 tabContents[tabName].style.display = 'block';
             });
         });
+
     </script>
 </body>
 </html>

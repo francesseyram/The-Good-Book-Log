@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar - The Good Book Log</title>
+    <title>Admin Sidebar - The Good Book Log</title>
     <link rel="stylesheet" href="../public/assets/css/styles.css">
 </head>
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <h1>The Good Book Log</h1>
+            <h1>The Good Book Log - Admin</h1>
         </div>
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="../api/dashboard.php" class="active">Dashboard</a></li>
-                <li><a href="../api/reading.php">Bible Reading</a></li>
-                <li><a href="../api/reading_plans.php">Reading Plans</a></li>
-                <li><a href="../api/active_plans.php">Active Plans</a></li>
-                <li><a href="../api/profile.php">Profile</a></li>
+                <li><a href="../api/admin_dashboard.php">Admin Dashboard</a></li>
+                <li><a href="../api/admin_user_management.php">User Management</a></li>
+                <li><a href="../api/admin_reading_plans.php">Manage Reading Plans</a></li>
+                <li><a href="../api/admin_profile.php">Profile</a></li>
                 <li><a href="#" onclick="confirmLogout()">Logout</a></li>
             </ul>
         </nav>
@@ -33,7 +32,7 @@
             }
             // If the user clicks "Cancel", do nothing
         }
-        </script>
+    </script>
     <script src="../public/assets/js/script.js"></script>
 </body>
 </html>

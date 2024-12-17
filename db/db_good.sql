@@ -187,3 +187,5 @@ VALUES
 (2, 24, 'Luke', 2, 21, 35),      -- Presentation in the Temple
 (2, 25, 'Luke', 2, 36, 40);      -- Anna and Simeon Rejoice
 
+
+ALTER TABLE users_gbl ADD COLUMN role INT DEFAULT 2;

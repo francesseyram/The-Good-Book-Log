@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         // Hash the password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $default_role = 2; // Set default role to 2
 
         // Check if email already exists
         $check_email = "SELECT user_id FROM users_gbl WHERE email = ?";
@@ -48,18 +49,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $stmt->close();
 
-            // Insert user into the database
-            $sql = "INSERT INTO users_gbl (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
+            // Insert user into the database with default role
+            $sql = "INSERT INTO users_gbl (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
 
             if ($stmt) {
-                $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
+                $stmt->bind_param("ssssi", $first_name, $last_name, $email, $hashed_password, $default_role);
                 if ($stmt->execute()) {
                     // Registration successful, set session variables
                     $_SESSION['user_email'] = $email;
                     $_SESSION['first_name'] = $first_name;
                     $_SESSION['last_name'] = $last_name;
-                    header("Location: dashboard.php");
+                    $_SESSION['user_role'] = $default_role;
+
+                    header("Location: login.php");
                     exit();
                 } else {
                     echo "<p style='color: red;'>Error: " . $stmt->error . "</p>";

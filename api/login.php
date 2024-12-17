@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Check user in the database
-    $sql = "SELECT user_id, first_name, last_name, email, password FROM users_gbl WHERE email = ?";
+    $sql = "SELECT user_id, first_name, last_name, email, password, role FROM users_gbl WHERE email = ?";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->num_rows > 0) {
             // Fetch user data
-            $stmt->bind_result($user_id, $first_name, $last_name, $email, $hashed_password);
+            $stmt->bind_result($user_id, $first_name, $last_name, $email, $hashed_password, $role);
             $stmt->fetch();
 
             // Verify password
@@ -45,9 +45,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['first_name'] = $first_name;
                 $_SESSION['last_name'] = $last_name;
                 $_SESSION['user_email'] = $email;
+                $_SESSION['user_role'] = $role;
 
-                // Redirect to dashboard
-                header("Location: dashboard.php");
+                // Redirect based on user role
+                if ($role == 1) {
+                    header("Location: admin_dashboard.php");
+                } else if ($role == 2) {
+                    header("Location: dashboard.php");
+                } else {
+                    echo "<p style='color: red;'>Invalid user role.</p>";
+                    exit();
+                }
                 exit();
             } else {
                 echo "<p style='color: red;'>Incorrect password.</p>";
@@ -129,6 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../public/assets/js/script.js"></script>
 </body>
 </html>

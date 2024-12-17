@@ -4,7 +4,7 @@ session_start();
 include '../config/config.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])|| $_SESSION['user_role'] != 2) {
     header("Location: login.php");
     exit();
 }
@@ -33,14 +33,14 @@ if (isset($_GET['plan_id'])) {
         echo "<script>alert('You are already enrolled in this plan.'); window.location.href='reading_plans.php';</script>";
     } else {
         // Query to insert the user into the user_reading_plans_gbl table to enroll
-        $enroll_query = "INSERT INTO user_reading_plans_gbl (user_id, plan_id, start_date, progress, status) 
-                         VALUES (?, ?, NOW(), 0, 'Not Started')";
+        $enroll_query = "INSERT INTO user_reading_plans_gbl (user_id, plan_id, start_date, progress) 
+                         VALUES (?, ?, NOW(), 0)";
         $enroll_stmt = $conn->prepare($enroll_query);
         $enroll_stmt->bind_param("ii", $user_id, $plan_id);
 
         if ($enroll_stmt->execute()) {
             // Show success message after successful enrollment
-            echo "<script>alert('Enrollment successful!'); window.location.href='view_plan.php?plan_id=$plan_id';</script>";
+            echo "<script>alert('Enrollment successful!'); window.location.href='../api/view_plan.php?plan_id=$plan_id';</script>";
         } else {
             echo "<script>alert('Enrollment failed. Please try again later.'); window.location.href='reading_plans.php';</script>";
         }

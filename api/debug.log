@@ -88,3 +88,12 @@ Inserting chapter_id: 2 for user_id: 2, plan_id: 1
 Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 7
 Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 2
 Total Chapters: 7, Read Chapters: 2, Progress Percentage: 28.571428571429
+Processing: Book: Isaiah, Chapter: 9, Start Verse: 6, End Verse: 7
+Found chapter_id: 1 for user_id: 7, plan_id: 1
+Inserting chapter_id: 1 for user_id: 7, plan_id: 1
+Processing: Book: Micah, Chapter: 5, Start Verse: 2, End Verse: 
+Found chapter_id: 2 for user_id: 7, plan_id: 1
+Inserting chapter_id: 2 for user_id: 7, plan_id: 1
+Total Chapters Query: SELECT COUNT(*) as total_chapters FROM plan_chapters_gbl WHERE plan_id = ?, Total Chapters: 7
+Read Chapters Query: SELECT COUNT(DISTINCT chapter_id) as read_chapters FROM read_chapters WHERE user_id = ? AND plan_id = ?, Read Chapters: 2
+Total Chapters: 7, Read Chapters: 2, Progress Percentage: 28.571428571429
