@@ -18,11 +18,22 @@
                 <li><a href="reading_plans.php">Reading Plans</a></li>
                 <li><a href="active_plans.php">Active Plans</a></li>
                 <li><a href="profile.php">Profile</a></li>
-                <li><a href="logout.php">Logout</a></li>
+                <li><a href="#" onclick="confirmLogout()">Logout</a></li>
             </ul>
         </nav>
         <button id="darkModeToggle" class="dark-mode-toggle">Toggle Dark Mode</button>
     </div>
+    <script>
+        function confirmLogout() {
+            // Show a confirmation dialog
+            var result = confirm("Are you sure you want to logout?");
+            if (result) {
+                // If the user clicks "OK", redirect to logout.php
+                window.location.href = '../api/logout.php';
+            }
+            // If the user clicks "Cancel", do nothing
+        }
+        </script>
     <script src="../public/assets/js/script.js"></script>
 </body>
 </html>
